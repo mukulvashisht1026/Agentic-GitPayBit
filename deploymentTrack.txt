@@ -1,0 +1,16 @@
+✔ Confirm deploy to network sepolia (84532)? … yes
+Hardhat Ignition 🚀
+
+Deploying [ TokenModule ]
+
+Batch #1
+  Executed TokenModule#Token
+
+[ TokenModule ] successfully deployed 🚀
+
+Deployed Addresses
+
+TokenModule#Token - 0xB4dA82C1291fa611746A7818F91a94A5917FEcB6
+
+
+
