@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .markdown-content {
+    line-height: 1.5;
+  }
+  
+  .markdown-content a {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+  
+  .markdown-content strong {
+    font-weight: bold;
+  }
+  
+  .markdown-content ul {
+    list-style-type: disc;
+    margin-left: 1rem;
+  }
+  
+  .markdown-content ol {
+    list-style-type: decimal;
+    margin-left: 1rem;
+  }
+  
