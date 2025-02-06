@@ -1,4 +1,3 @@
-'use client';
 
 import {
   ConnectWallet,
@@ -17,9 +16,11 @@ import {
 import ArrowSvg from './svg/ArrowSvg';
 import ImageSvg from './svg/Image';
 import OnchainkitSvg from './svg/OnchainKit';
-import Login from './components/Login';
-import { SessionProvider } from "next-auth/react"
-import type { AppProps } from "next/app";
+import Link from 'next/link';
+import Header from './header/header';
+import LoginPage from './login/LoginPage';
+import Chat from './chat/Chat';
+import CampaignUI from './onchain/CampaignUI';
 
 const components = [
   {
@@ -38,12 +39,13 @@ const templates = [
   { name: 'Fund', url: 'https://github.com/fakepixels/fund-component' },
 ];
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App() {
   return (
     <>
-    <SessionProvider session={pageProps?.session}>
-      <Login/>
-    </SessionProvider>
+    
+      <Header></Header>
+      <Chat/>
+      <CampaignUI/>
     </>
   );
 }
