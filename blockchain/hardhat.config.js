@@ -21,6 +21,8 @@ module.exports = {
     sepolia: {
       url: `https://base-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
       accounts: [SEPOLIA_PRIVATE_KEY]
-    }
+    },
+    hardhat: {},
+
   }
 };
