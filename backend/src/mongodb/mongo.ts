@@ -29,6 +29,7 @@ async function startServer() {
             res.status(500).json({ error: 'Internal server error' });
           }
         });
+
         app.post('/chat/:threadId', async (req: Request, res: Response) => {
           const { threadId } = req.params;
           const { message } = req.body;
@@ -40,6 +41,41 @@ async function startServer() {
             res.status(500).json({ error: 'Internal server error' });
           }
         });
+
+
+        app.get("/get-code", async (req: Request, res: Response) => {
+            const userMessage = req.query.message as string || "Say this is a test!"; // Get message from query parameter
+            const wrappedMessage = "after colon is the message and I want you to wrap it in html and  provide  your final output enclosing in div tag : "+ userMessage;
+            
+            try {
+              console.log("render-api-gets-called");
+                
+              // OpenAI API Call
+              const openaiResponse = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+                },
+                body: JSON.stringify({
+                  model: "gpt-4o-mini",
+                  messages: [{ role: "user", content: userMessage }],
+                  temperature: 0.7,
+                }),
+              });
+          
+              const data = await openaiResponse.json();
+          
+              // Extract the AI-generated response
+              const codeString = data.choices?.[0]?.message?.content || "<div>Hello world</div>";
+          
+              res.json({ codeString });
+            } catch (error) {
+              console.error("Error calling OpenAI API:", error);
+              res.status(500).json({ error: "Internal server error" });
+            }
+          });
+
         const PORT = process.env.PORT || 3001;
         app.listen(PORT, () => {
           console.log(`Server running on port ${PORT}`);
@@ -48,6 +84,9 @@ async function startServer() {
         console.error('Error connecting to MongoDB:', error);
         process.exit(1);
       }
+
+
+
 }
 
 startServer(); 

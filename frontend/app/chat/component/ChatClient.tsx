@@ -1,8 +1,10 @@
 "use client";
 
+import { useAIResponse } from "@/app/context/dynamicAIContentContext";
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
+
 
 // API URLs
 const primaryApiUrl = "http://localhost:3001/chat";
@@ -72,6 +74,7 @@ const ChatClient = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+  const { setAiResponse } = useAIResponse();
 
   // Send message function
   const sendMessage = async () => {
@@ -110,6 +113,7 @@ const ChatClient = () => {
         };
         setMessages((prevMessages) => [...prevMessages, responseMessage]);
       }
+      setAiResponse(primaryApiResponse.response);
     }
   };
 
