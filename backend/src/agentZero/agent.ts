@@ -16,7 +16,11 @@ import githubProfileLookupTool from "../tools/tool";
 
 
 
-export async function callAgent(client: MongoClient, query: string, thread_id: string) {
+export async function 
+
+
+
+callAgent(client: MongoClient, query: string, thread_id: string) {
     // Define the MongoDB database and collection
     const dbName = "github_database";
     const db = client.db(dbName);
@@ -57,7 +61,9 @@ export async function callAgent(client: MongoClient, query: string, thread_id: s
       );
 
 
-      
+    // const githubRatingTool = tool(
+    //     async ()
+    // ) 
 
     const tools = [gitContributionsLookupTool, githubProfileLookupTool];
 

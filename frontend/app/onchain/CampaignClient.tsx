@@ -115,7 +115,7 @@ export default function CampaignClient() {
             <p><strong>Campaign Name:</strong> {campaignInfo[0]}</p>
             <p><strong>Repository:</strong> {campaignInfo[1]}</p>
             <p><strong>Prize Pool:</strong> {ethers.formatUnits(campaignInfo[2], "ether")} ETH</p>
-            <p><strong>Maintainers:</strong> {campaignInfo[3].join(", ")}</p>
+            {/* <p><strong>Maintainers:</strong> {campaignInfo[3]?.join(", ")}</p> */}
           </div>
         )}
       </div>

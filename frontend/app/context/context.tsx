@@ -3,6 +3,15 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { ethers } from "ethers";
 
+import { MetaMaskInpageProvider } from "@metamask/providers";
+
+
+declare global {
+  interface Window {
+    ethereum?: MetaMaskInpageProvider;
+  }
+}
+
 type EthersContextType = {
   provider: ethers.BrowserProvider | null;
   signer: ethers.JsonRpcSigner | null;
@@ -990,7 +999,8 @@ export const EthersProvider = ({ children }: { children: ReactNode }) => {
 
       setProvider(_provider);
       setSigner(_signer);
-      setAccount(accounts[0]);
+      accounts[0].getAddress().then(address => setAccount(address));
+      // setAccount(accounts[0].getAddress() || null);
 
       if (contractABI.length > 0) {
         const _contract = new ethers.Contract(contractAddress, contractABI, _signer);

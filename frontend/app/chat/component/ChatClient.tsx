@@ -68,7 +68,7 @@ const ChatClient = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [messageInput, setMessageInput] = useState("");
   const [sender, setSender] = useState("User");
-  const [threadId, setThreadId] = useState<string | null>(null);
+  const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
   useEffect(() => {
@@ -85,7 +85,7 @@ const ChatClient = () => {
         sender,
         timestamp: new Date().toISOString(),
       };
-
+      setSender(sender);
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessageInput("");
 
@@ -136,7 +136,7 @@ const ChatClient = () => {
                 <ReactMarkdown
                   className="markdown-content"
                   components={{
-                    a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" />,
+                    a: (props) => <a {...props} target="_blank" rel="noopener noreferrer" />,
                   }}
                 >
                   {message.text}

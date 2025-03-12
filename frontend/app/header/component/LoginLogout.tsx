@@ -14,7 +14,7 @@ export default function LoginLogout() {
   const [username, setUsername] = useState<string | null>(null);
 
   useEffect(() => {
-    if (session?.accessToken) {
+    if (session && "accessToken" in session) {
       const fetchData = async () => {
         const response = await fetch("https://api.github.com/user", {
           headers: {
@@ -23,11 +23,12 @@ export default function LoginLogout() {
         });
         const data: GitHubUser = await response.json();
         setUsername(data.login);  // GitHub username
+        console.log(username);
       };
 
       fetchData();
     }
-  }, [session?.accessToken]);
+  }, [(session && "accessToken" in session)]);
 
   return (
     <>

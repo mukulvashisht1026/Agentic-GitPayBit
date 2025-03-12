@@ -2,7 +2,6 @@
 // ChatServer.tsx
 import React from 'react';
 import ChatClient from './component/ChatClient';
-import { SessionProvider } from 'next-auth/react';
 
 const Chat = () => {
   return (

@@ -1,6 +1,5 @@
 'use client';
 
-import { SessionProvider } from "next-auth/react";
 import LoginLogout from "./component/LoginLogout";
 
 export default function Header() {

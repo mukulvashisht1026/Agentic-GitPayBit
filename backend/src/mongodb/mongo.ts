@@ -45,7 +45,8 @@ async function startServer() {
 
         app.get("/get-code", async (req: Request, res: Response) => {
             const userMessage = req.query.message as string || "Say this is a test!"; // Get message from query parameter
-            const wrappedMessage = "after colon is the message and I want you to wrap it in html and  provide  your final output enclosing in div tag : "+ userMessage;
+            const wrappedMessage = "after colon is the message and I want you to wrap it in html and  provide  your final output enclosing in div tag if there is markdown language in the message convert it to html tags : "+ userMessage;
+            // const wrappedMessage = "after colon is the message and I want you to wrap it in html and  provide  your final output enclosing in div tag , also if any HTML code is there in the messege then only output the html code and remove any text outside of it. and if there is no html code then just dispay text in formatted html code and remove other formattings and if there is css then make all the css inline in the html code: "+ userMessage;
             
             try {
               console.log("render-api-gets-called");
