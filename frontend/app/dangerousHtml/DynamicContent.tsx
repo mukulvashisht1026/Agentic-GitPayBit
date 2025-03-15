@@ -8,7 +8,9 @@ async function getContent(message: string) {
   if (!message) return "<div>No content available</div>"; // Handle empty messages
 
   try {
-    const response = await fetch(`http://localhost:3001/get-code?message=${encodeURIComponent(message)}`);
+    // https://gitbit-9138f8eb30be.herokuapp.com/chat
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL_BACKEND || "https://gitbit-9138f8eb30be.herokuapp.com";
+    const response = await fetch(`${apiUrl}/get-code?message=${encodeURIComponent(message)}`);
     const data = await response.json();
     return data.codeString;
   } catch (error) {

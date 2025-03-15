@@ -7,9 +7,14 @@ import ReactMarkdown from "react-markdown";
 
 
 // API URLs
-const primaryApiUrl = "http://localhost:3001/chat";
+// const primaryApiUrl = "http://localhost:3001/chat";
+const primaryApiUrl = process.env.NEXT_PUBLIC_API_URL_BACKEND || "https://gitbit-9138f8eb30be.herokuapp.com/chat";
 const fallbackApiUrl = "https://autonome.alt.technology/test-njlolw/chat";
 const fallbackApiAuth = "Basic dGVzdDpYVUxaQWlHR3B0";
+
+// 
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL_BACKEND || "https://gitbit-9138f8eb30be.herokuapp.com";
+// const response = await fetch(`${apiUrl}/get-code?message=${encodeURIComponent(message)}`);
 
 // Message Type
 type Message = {
