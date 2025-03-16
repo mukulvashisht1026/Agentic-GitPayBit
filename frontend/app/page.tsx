@@ -4,6 +4,7 @@ import Header from './header/header';
 import Chat from './chat/Chat';
 import CampaignUI from './onchain/CampaignUI';
 import Tabs from './tabs/tabs';
+import Footer from './footer/Footer';
 
 
 
@@ -28,6 +29,7 @@ export default function App() {
       <Header></Header>
       <Tabs tabs={tabsComponent}></Tabs>
       {/* <DynamicContent/> */}
+      <Footer></Footer>
     
     </>
   );

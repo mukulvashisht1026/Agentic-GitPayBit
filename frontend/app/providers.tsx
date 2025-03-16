@@ -13,7 +13,7 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <AIResponseProvider>
-      <OnchainKitProvider
+      {/* <OnchainKitProvider
         apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
         chain={baseSepolia}
         config={{
@@ -21,9 +21,9 @@ export function Providers({ children }: { children: ReactNode }) {
             mode: "auto",
           },
         }}
-      >
+      > */}
         <EthersProvider>{children}</EthersProvider>
-      </OnchainKitProvider>
+      {/* </OnchainKitProvider> */}
       </AIResponseProvider>
     </SessionProvider>
   );

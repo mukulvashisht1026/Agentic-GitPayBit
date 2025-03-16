@@ -5,7 +5,7 @@ import { useEthers } from "@/app/context/context";
 import { ethers } from "ethers";
 
 export default function CampaignClient() {
-  const { contract, account, connectWallet } = useEthers();
+  const { contract, account, connectWallet, disconnectWallet } = useEthers();
   const [campaignData, setCampaignData] = useState({
     githubUsername: "",
     repositoryName: "",
@@ -97,74 +97,21 @@ export default function CampaignClient() {
 
   return (
     <div className="p-4 space-y-4">
-      {!account && (
+     {!account ? (<>
         <button onClick={connectWallet} className="bg-blue-500 text-white p-2 rounded">
           Connect Wallet
         </button>
-      )}
+      </>) : (<> <button onClick={disconnectWallet} className="bg-gray-700 text-white p-2 rounded">
+          Disconnect ({account})
+        </button></>)}
+     
+     
+      
 
-         {/* View Campaign */}
-      <div>
-        <h2 className="font-bold">View Campaign</h2>
-        <input placeholder="Campaign ID" className="border p-2 rounded w-full" onChange={(e) => setCampaignId(e.target.value)} />
-        <button onClick={viewCampaign} className="bg-gray-500 text-white p-2 rounded w-full">
-          View Campaign
-        </button>
-        {campaignInfo && (
-          <div className="p-4 border rounded mt-2">
-            <p><strong>Campaign Name:</strong> {campaignInfo[0]}</p>
-            <p><strong>Repository:</strong> {campaignInfo[1]}</p>
-            <p><strong>Prize Pool:</strong> {ethers.formatUnits(campaignInfo[2], "ether")} ETH</p>
-            {/* <p><strong>Maintainers:</strong> {campaignInfo[3]?.join(", ")}</p> */}
-          </div>
-        )}
-      </div>
+  
 
 
-      {/* Create Campaign */}
-      <div>
-        <h2 className="font-bold">Create Campaign</h2>
-        <input placeholder="GitHub Username" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, githubUsername: e.target.value })} />
-        <input placeholder="Repository Name" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, repositoryName: e.target.value })} />
-        <input placeholder="Campaign Name" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, campaignName: e.target.value })} />
-        <input placeholder="Prize Pool (ETH)" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, prizePool: e.target.value })} />
-        <input placeholder="Maintainers (comma-separated)" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, maintainers: e.target.value })} />
-        <input placeholder="Level Supplies (comma-separated)" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, levelSupplies: e.target.value })} />
-        <input placeholder="Level URIs (comma-separated)" className="border p-2 rounded w-full" onChange={(e) => setCampaignData({ ...campaignData, levelURIs: e.target.value })} />
-        <button onClick={createCampaign} className="bg-green-500 text-white p-2 rounded w-full">
-          Create Campaign
-        </button>
-      </div>
-
-      {/* Assign Level */}
-      <div>
-        <h2 className="font-bold">Assign Level</h2>
-        <input placeholder="Campaign ID" className="border p-2 rounded w-full" onChange={(e) => setCampaignId(e.target.value)} />
-        <input placeholder="Contributor Address" className="border p-2 rounded w-full" onChange={(e) => setContributor(e.target.value)} />
-        <input placeholder="Level" className="border p-2 rounded w-full" onChange={(e) => setLevel(e.target.value)} />
-        <button onClick={assignLevel} className="bg-yellow-500 text-white p-2 rounded w-full">
-          Assign Level
-        </button>
-      </div>
-
-      {/* Mint NFT */}
-      <div>
-        <h2 className="font-bold">Mint NFT</h2>
-        <input placeholder="Campaign ID" className="border p-2 rounded w-full" onChange={(e) => setCampaignId(e.target.value)} />
-        <button onClick={mintNFT} className="bg-purple-500 text-white p-2 rounded w-full">
-          Mint NFT
-        </button>
-      </div>
-
-      {/* Pay for NFT */}
-      <div>
-        <h2 className="font-bold">Pay NFT</h2>
-        <input placeholder="Token ID" className="border p-2 rounded w-full" onChange={(e) => setTokenId(e.target.value)} />
-        <input placeholder="Amount (ETH)" className="border p-2 rounded w-full" onChange={(e) => setPaymentAmount(e.target.value)} />
-        <button onClick={payNFT} className="bg-red-500 text-white p-2 rounded w-full">
-          Pay NFT
-        </button>
-      </div>
+    
     </div>
   );
 }

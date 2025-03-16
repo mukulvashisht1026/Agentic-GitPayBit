@@ -18,6 +18,7 @@ type EthersContextType = {
   account: string | null;
   contract: ethers.Contract | null;
   connectWallet: () => Promise<void>;
+  disconnectWallet: () => void;
 };
 
 const EthersContext = createContext<EthersContextType | undefined>(undefined);
@@ -986,6 +987,7 @@ export const EthersProvider = ({ children }: { children: ReactNode }) => {
 
   // Connect wallet function
   const connectWallet = async () => {
+    console.log("called connect wallet.....")
     try {
       if (!window.ethereum) {
         alert("MetaMask is not installed!");
@@ -1011,16 +1013,26 @@ export const EthersProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Auto-connect if the user is already connected
-  useEffect(() => {
-    console.log("context.js - window.ethereum", window.ethereum)
-    if (window.ethereum) {
-      connectWallet();
-    }
-  }, []);
+  const disconnectWallet =  () => {
+    console.log("called disconnect wallet.....")
+
+    setProvider(null);
+    setSigner(null);
+    setAccount(null);
+    setContract(null);
+  };
+
+
+  // // Auto-connect if the user is already connected
+  // useEffect(() => {
+  //   console.log("context.js - window.ethereum", window.ethereum)
+  //   if (window.ethereum) {
+  //     connectWallet();
+  //   }
+  // }, []);
 
   return (
-    <EthersContext.Provider value={{ provider, signer, account, contract, connectWallet }}>
+    <EthersContext.Provider value={{ provider, signer, account, contract, connectWallet, disconnectWallet }}>
       {children}
     </EthersContext.Provider>
   );
