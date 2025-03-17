@@ -182,7 +182,12 @@ const ChatClient = () => {
           </button>
         </div>
       </div>
-    </div>):(<></>)}
+    </div>):(<><div className="flex flex-col h-full bg-black w-full justify-center text-center font-bold text-white">
+      
+      
+      Sign-in to continue...
+      
+      </div></>)}
    </>
    )
 };

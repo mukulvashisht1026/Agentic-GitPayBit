@@ -15,7 +15,7 @@ export default function TabsClient({ tabs }: { tabs: { [key: string]: React.Reac
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`py-2 px-4 text-lg font-semibold ${
-              activeTab === tab ? 'border-b-4 border-white text-white' : 'text-gray-300'
+              activeTab === tab ? ' border-white text-white' : 'text-gray-400'
             }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
