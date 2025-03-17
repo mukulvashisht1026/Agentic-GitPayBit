@@ -4,12 +4,12 @@ import LoginLogout from "./component/LoginLogout";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 shadow-lg bg-gray-200 z-10">
+    <header className="sticky top-0 shadow-lg bg-black z-10 border-cyan-10 border-b-2">
       <nav className="mb-2 px-6 lg:px-12 py-2.5">
         <div className="flex justify-between items-center mx-auto">
           {/* Logo - Aligned more to the left */}
           <div className="flex items-center">
-            <span className="text-xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="text-xl font-semibold whitespace-nowrap text-white">
               GitPayBit
             </span>
           </div>

@@ -7,15 +7,15 @@ export default function TabsClient({ tabs }: { tabs: { [key: string]: React.Reac
   const [activeTab, setActiveTab] = useState(tabKeys[0]); // Default to the first tab
 
   return (
-    <div className="max-w-4xl mx-auto mt-10">
+    <div className="w-1/2 mt-10 justify-center">
       {/* Tabs Header */}
-      <div className="flex border-b">
+      <div className="flex">
         {tabKeys.map((tab) => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`py-2 px-4 text-lg font-semibold ${
-              activeTab === tab ? 'border-b-4 border-blue-500 text-blue-500' : 'text-gray-600'
+              activeTab === tab ? 'border-b-4 border-white text-white' : 'text-gray-300'
             }`}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -24,7 +24,7 @@ export default function TabsClient({ tabs }: { tabs: { [key: string]: React.Reac
       </div>
 
       {/* Keep all tabs mounted but control visibility */}
-      <div className="p-4 border">
+      <div className="border border-b-8 border-r-8 rounded-lg border-yellow-400">
         {tabKeys.map((tab) => (
           <div key={tab} style={{ display: activeTab === tab ? 'block' : 'none' }}>
             {tabs[tab]}
