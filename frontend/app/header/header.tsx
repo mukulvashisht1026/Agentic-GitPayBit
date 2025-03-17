@@ -10,7 +10,7 @@ export default function Header() {
           {/* Logo - Aligned more to the left */}
           <div className="flex items-center">
             <span className="text-xl font-semibold whitespace-nowrap text-white">
-              GitPayBit
+              GitBit
             </span>
           </div>
 
