@@ -11,7 +11,10 @@
   "dependencies": {
     "@coinbase/onchainkit": "latest",
     "@tanstack/react-query": "^5",
+    "dotenv": "^16.4.7",
     "ethers": "^6.13.5",
+    "express": "^4.21.2",
+    "mongoose": "^8.12.1",
     "next": "14.2.15",
     "next-auth": "^4.24.11",
     "react": "^18",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useAIResponse } from "@/app/context/dynamicAIContentContext";
+import TalkingFace from "@/app/face/TalkingFace";
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
@@ -25,22 +26,36 @@ type Message = {
 };
 
 // API call to the primary chat server
-const callPrimaryApi = async (message: string, threadId?: string) => {
+const callPrimaryApi = async (session: any, message: string, threadId?: string) => {
   try {
+    console.log('session is 123', session)
     const url = threadId ? `${primaryApiUrl}/${threadId}` : primaryApiUrl;
     const response = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + session.bAccessToken
+     },
       body: JSON.stringify({ message }),
     });
 
-    if (!response.ok) throw new Error("Primary API call failed");
+    if (!response.ok) {
+      if (response.status == 429) {
+        return {data: {response: "you have used up your available limit, contact Owner for increasing your quota  "}, threadId}
+      }
+      if (response.status == 400) {
+        return {data: {response: "message max length exceeded of 100 characters"}, threadId}
+      }
+      
+      throw new Error("Primary API call failed");
+  
+  }
     const data = await response.json();
 
     if (!threadId && data.threadId) {
       return { data, threadId: data.threadId };
     }
-
+    // console.log('data format: ', data);
     return { data, threadId };
   } catch (error) {
     console.error("Primary API error:", error);
@@ -95,7 +110,7 @@ const ChatClient = () => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessageInput("");
 
-      const { data: primaryApiResponse, threadId: newThreadId } = await callPrimaryApi(messageInput, threadId);
+      const { data: primaryApiResponse, threadId: newThreadId } = await callPrimaryApi(session, messageInput, threadId);
 
       if (newThreadId && !threadId) {
         setThreadId(newThreadId);
@@ -182,8 +197,12 @@ const ChatClient = () => {
           </button>
         </div>
       </div>
-    </div>):(<><div className="flex flex-col h-full bg-black w-full justify-center text-center font-bold text-white">
-      
+    </div>):(<>
+    
+    
+    <div className="flex flex-col h-full bg-black w-full justify-center items-center text-center font-bold text-white">
+    <TalkingFace/>
+      {/* <div>hello</div> */}
       
       Sign-in to continue...
       

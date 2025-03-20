@@ -47,3 +47,14 @@ npm start
 ## License
 
 Apache-2.0
+
+
+Demo limit - 5 API call
+
+emailId: example@gmail.com
+totalCallAvailable: 10
+totalCallsExec: 2
+subscribed: true
+subscriptionId: some-Id
+
+authorization 

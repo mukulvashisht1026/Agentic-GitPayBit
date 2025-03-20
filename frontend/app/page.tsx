@@ -28,7 +28,8 @@ export default function App() {
       <div className='flex flex-col min-h-screen bg-black'>
       <Header></Header>
       <div className='flex justify-center'>
-      <Tabs  tabs={tabsComponent}></Tabs></div>
+      <Tabs  tabs={tabsComponent}></Tabs>
+      </div>
       {/* <DynamicContent/> */}
       <Footer></Footer>
       </div>
