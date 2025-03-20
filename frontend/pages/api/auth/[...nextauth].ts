@@ -7,7 +7,7 @@ import GitHubProvider from "next-auth/providers/github";
 // const authenticateWithBackend = async (token: JWT) => {
 
 // };
-
+const primaryApiUrl = (process.env.NEXT_PUBLIC_API_URL_BACKEND || "https://gitbit-9138f8eb30be.herokuapp.com") + "/auth/github-login";
 
 export default NextAuth({
   providers: [
@@ -26,10 +26,10 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // console.log('token_session123: ', session, token)
+      console.log('token_session123: ', session, token)
       try {
         // console.log('authenticateWithBackend jumbo: ', token, JSON.stringify({ token }))
-        const response = await fetch("http://localhost:3001/auth/github-login", {
+        const response = await fetch(primaryApiUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token: token }),
