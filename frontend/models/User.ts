@@ -19,7 +19,7 @@ const UserSchema = new Schema<IUser>({
   subscribed: { type: Boolean, default: false },
   subscriptionId: { type: String, default: null },
   githubId: { type: String, default: null },
-  maxMessageLength: { type: Number, default: 20 },
+  maxMessageLength: { type: Number, default: 100 },
 });
 
 // Define the Mongoose Model type
