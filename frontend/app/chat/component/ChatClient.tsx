@@ -5,6 +5,12 @@ import TalkingFace from "@/app/face/TalkingFace";
 import { useSession } from "next-auth/react";
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
+import { Session } from "next-auth";
+
+
+interface ExtendedSession extends Session {
+  bAccessToken?: string;
+}
 
 
 // API URLs
@@ -26,7 +32,7 @@ type Message = {
 };
 
 // API call to the primary chat server
-const callPrimaryApi = async (session: any, message: string, threadId?: string) => {
+const callPrimaryApi = async (session: ExtendedSession, message: string, threadId?: string) => {
   try {
     console.log('session is 123', session)
     const url = threadId ? `${primaryApiUrl}/${threadId}` : primaryApiUrl;
@@ -92,7 +98,7 @@ const ChatClient = () => {
   const [threadId, setThreadId] = useState<string | undefined>(undefined);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [isClicked, setIsClicked] = useState(true);
-  const { data: session } = useSession();
+  const { data: session } = useSession() as { data: ExtendedSession | null };
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -100,44 +106,46 @@ const ChatClient = () => {
 
   // Send message function
   const sendMessage = async () => {
-    if (messageInput.trim()) {
-      const newMessage: Message = {
-        id: new Date().toISOString(),
-        text: messageInput,
-        sender,
-        timestamp: new Date().toISOString(),
-      };
-      setSender(sender);
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-      setMessageInput("");
-
-      const { data: primaryApiResponse, threadId: newThreadId } = await callPrimaryApi(session, messageInput, threadId);
-
-      if (newThreadId && !threadId) {
-        setThreadId(newThreadId);
-      }
-
-      if (primaryApiResponse) {
-        const responseMessage: Message = {
+    if (session) {
+      if (messageInput.trim()) {
+        const newMessage: Message = {
           id: new Date().toISOString(),
-          text: primaryApiResponse.response,
-          sender: "Bot",
+          text: messageInput,
+          sender,
           timestamp: new Date().toISOString(),
         };
-        setMessages((prevMessages) => [...prevMessages, responseMessage]);
-      } else {
-        const fallbackMessage = await callFallbackApi(messageInput);
-        const responseMessage: Message = {
-          id: new Date().toISOString(),
-          text: fallbackMessage,
-          sender: "Bot",
-          timestamp: new Date().toISOString(),
-        };
-        setMessages((prevMessages) => [...prevMessages, responseMessage]);
+        setSender(sender);
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+        setMessageInput("");
+  
+        const { data: primaryApiResponse, threadId: newThreadId } = await callPrimaryApi(session, messageInput, threadId);
+  
+        if (newThreadId && !threadId) {
+          setThreadId(newThreadId);
+        }
+  
+        if (primaryApiResponse) {
+          const responseMessage: Message = {
+            id: new Date().toISOString(),
+            text: primaryApiResponse.response,
+            sender: "Bot",
+            timestamp: new Date().toISOString(),
+          };
+          setMessages((prevMessages) => [...prevMessages, responseMessage]);
+        } else {
+          const fallbackMessage = await callFallbackApi(messageInput);
+          const responseMessage: Message = {
+            id: new Date().toISOString(),
+            text: fallbackMessage,
+            sender: "Bot",
+            timestamp: new Date().toISOString(),
+          };
+          setMessages((prevMessages) => [...prevMessages, responseMessage]);
+        }
+        setAiResponse(primaryApiResponse.response);
       }
-      setAiResponse(primaryApiResponse.response);
+      setIsClicked(true)
     }
-    setIsClicked(true)
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

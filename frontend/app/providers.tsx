@@ -1,7 +1,5 @@
 "use client";
 
-import { baseSepolia } from "wagmi/chains";
-import { OnchainKitProvider } from "@coinbase/onchainkit";
 import type { ReactNode } from "react";
 
 

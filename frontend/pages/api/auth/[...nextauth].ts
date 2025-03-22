@@ -1,6 +1,6 @@
 // pages/api/auth/[...nextauth].ts
 import type { NextApiRequest, NextApiResponse } from "next";
-import type { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, Account, Session } from "next-auth";
 import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import { JWT } from "next-auth/jwt";
@@ -23,14 +23,20 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, account }: { token: JWT; account?: any }) {
+    async jwt({
+      token,
+      account,
+    }: {
+      token: JWT;
+      account: Account | null;
+    }) {
       if (account) {
         console.log("assigning accessToken:", account, token);
         token.accessToken = account.access_token;
       }
       return token;
     },
-    async session({ session, token }: { session: any; token: JWT }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       console.log("token_session123:", session, token);
       try {
         const { name, email } = token;

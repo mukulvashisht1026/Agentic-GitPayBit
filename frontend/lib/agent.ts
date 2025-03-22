@@ -1,5 +1,4 @@
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { ChatAnthropic } from "@langchain/anthropic";
 import { ChatOpenAI } from "@langchain/openai";
 import { AIMessage, BaseMessage, HumanMessage } from "@langchain/core/messages";
 import { ChatPromptTemplate, MessagesPlaceholder } from "@langchain/core/prompts";

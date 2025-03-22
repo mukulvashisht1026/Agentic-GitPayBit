@@ -55,7 +55,7 @@ const githubProfileLookupTool = tool(
       }
       const profileData: GitHubProfile = await profileResponse.json();
 
-      let additionalData: {
+      const additionalData: {
         repos?: GitHubRepo[];
         followers?: GitHubFollower[];
       } = {};
