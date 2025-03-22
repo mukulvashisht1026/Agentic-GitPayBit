@@ -10,24 +10,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    
-    console.log("frontend-server", req.headers);
+    console.log('[frontedn-threadid]')
     const authHeader = req.headers.authorization;
-    console.log("authHeader", authHeader);
     const token = authHeader?.split(" ")[1];
 
     if (!token) {
-      console.log("no token found");
       return res.status(401).json({ error: "Unauthorized" });
     }
 
     const decoded = verifyJWT(token);
     if (!decoded) {
-      console.log("decoded not");
       return res.status(403).json({ error: "Invalid token" });
     }
 
     const { message } = req.body;
+    const { threadId } = req.query;
 
     const user = await UserModel.findOne({
       emailId: decoded.email,
@@ -47,11 +44,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     user.totalCallsExec += 1;
     await user.save();
 
-    const threadId = Date.now().toString();
     const mongoClient = await connectMongoClient();
-    const response = await callAgent(mongoClient, message, threadId);
+    const response = await callAgent(mongoClient, message, threadId as string);
 
-    return res.status(200).json({ threadId, response });
+    return res.status(200).json({ response });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ error: "Internal Server Error" });

@@ -9,7 +9,7 @@ import ReactMarkdown from "react-markdown";
 
 // API URLs
 // const primaryApiUrl = "http://localhost:3001/chat";
-const primaryApiUrl = (process.env.NEXT_PUBLIC_API_URL_BACKEND || "https://gitbit-9138f8eb30be.herokuapp.com") + "/chat";
+const primaryApiUrl = "/api/chat";
 const fallbackApiUrl = "https://autonome.alt.technology/test-njlolw/chat";
 const fallbackApiAuth = "Basic dGVzdDpYVUxaQWlHR3B0";
 
@@ -30,6 +30,7 @@ const callPrimaryApi = async (session: any, message: string, threadId?: string) 
   try {
     console.log('session is 123', session)
     const url = threadId ? `${primaryApiUrl}/${threadId}` : primaryApiUrl;
+    
     const response = await fetch(url, {
       method: "POST",
       headers: { 

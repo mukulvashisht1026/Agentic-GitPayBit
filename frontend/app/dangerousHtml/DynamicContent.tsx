@@ -9,8 +9,8 @@ async function getContent(message: string) {
 
   try {
     // https://gitbit-9138f8eb30be.herokuapp.com/chat
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL_BACKEND || "https://gitbit-9138f8eb30be.herokuapp.com";
-    const response = await fetch(`${apiUrl}/get-code?message=${encodeURIComponent(message)}`);
+ 
+    const response = await fetch(`/get-code?message=${encodeURIComponent(message)}`);
     const data = await response.json();
     return data.codeString;
   } catch (error) {
