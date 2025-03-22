@@ -1,0 +1,22 @@
+await gitBitNFT.uri(2)
+await gitBitNFT.balanceOf(playerAddress,2)
+await gitBitNFT.balanceOf(playerAddress,1)
+await gitBitNFT.balanceOf(deployerAddress,1)
+await gitBitNFT.balanceOf(deployerAddress,2)
+await gitBitNFT.balanceOf("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",2)
+await gitBitNFT.safeTransferFrom(deployerAddress, playerAddress, 2, 1, '0x')
+await gitBitNFT.safeTransferFrom(deployerAddress, playerAddress, 2, 1, '0x0')
+await gitBitNFT.safeTransferFrom(deployerAddress, playerAddress, 2, 1, "0x0")
+await gitBitNFT.safeTransferFrom(deployerAddress, playerAddress, 2, 1, 0x0)
+gitBitNFT.safeTransferFrom(deployerAddresss, playerAddress, 2, 1, 0x0)
+const playerAddress = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+const deployerAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+await gitBitNFT.balanceOf("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",3)
+gitBitNFT.balanceOf("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",3)
+gitBitNFT
+gitBitNFT = GitBitNFT.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3")
+GitBitNFT.attach("0x5FbDB2315678afecb367f032d93F642f64180aa3")
+console.log(GitBitNFT)
+const GitBitNFT = await ethers.getContractFactory("GitBitNFT")
+const gitBit = await ethers.getContractFactory("GitBitNFT")
+const gitBit = await ethers.getContractFactory("GitBit")
