@@ -1,6 +1,6 @@
 "use client"; // Ensures it's a client component
 
-import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { ethers } from "ethers";
 
 import { MetaMaskInpageProvider } from "@metamask/providers";

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useEthers } from "@/app/context/context";
 import { ethers } from "ethers";
-import CampaignUI from "./CampaignUI";
 
 export default function CampaignClient() {
   const { contract, account, connectWallet, disconnectWallet } = useEthers();

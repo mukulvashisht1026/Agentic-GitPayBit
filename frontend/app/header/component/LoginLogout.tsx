@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 export default function LoginLogout() {
   const { data: session } = useSession();
   const [username, setUsername] = useState<string | null>(null);
-  const [jwtToken, setJwtToken] = useState<string | null>(null);
   const [isClicked, setIsClicked] = useState(true);
 
   useEffect(() => {
