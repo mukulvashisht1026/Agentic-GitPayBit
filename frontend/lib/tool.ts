@@ -51,12 +51,14 @@ const githubProfileLookupTool = tool(
     try {
       const profileResponse = await fetch(apiUrl, {
         headers: {
+          'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
           // 'Authorization': `Bearer ${githubToken}`, // Optional but recommended
           'User-Agent': 'AgenticGitPayBit/1.0.0',   // ✅ Required!
           // 'Accept': 'application/vnd.github+json',
         },
       });
       if (!profileResponse.ok) {
+        console.log(profileResponse.headers);      // Total quota
         throw new Error(`GitHub API request failed with status ${profileResponse.status}`);
       }
       const profileData: GitHubProfile = await profileResponse.json();
@@ -69,6 +71,7 @@ const githubProfileLookupTool = tool(
       if (includeRepos) {
         const reposResponse = await fetch(reposUrl, {
           headers: {
+            'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
             // 'Authorization': `Bearer ${githubToken}`, // Optional but recommended
             'User-Agent': 'AgenticGitPayBit/1.0.0',   // ✅ Required!
             // 'Accept': 'application/vnd.github+json',
@@ -85,12 +88,16 @@ const githubProfileLookupTool = tool(
             language: repo.language,
           }));
         }
+        if (!reposResponse.ok) {
+          console.log(reposResponse.headers);      // Total quota
+          throw new Error(`GitHub API request failed with status ${profileResponse.status}`);
+        }
       }
 
       if (includeFollowers) {
         const followersResponse = await fetch(followersUrl, {
           headers: {
-            // 'Authorization': `Bearer ${githubToken}`, // Optional but recommended
+            'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`, // Optional but recommended
             'User-Agent': 'AgenticGitPayBit/1.0.0',   // ✅ Required!
             // 'Accept': 'application/vnd.github+json',
           },
@@ -102,6 +109,9 @@ const githubProfileLookupTool = tool(
             html_url: follower.html_url,
             avatar_url: follower.avatar_url,
           }));
+        } else  (!followersResponse.ok) {
+          console.log(followersResponse.headers);      // Total quota
+          throw new Error(`GitHub API request failed with status ${followersResponse.status}`);
         }
       }
 
