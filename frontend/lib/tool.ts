@@ -49,7 +49,13 @@ const githubProfileLookupTool = tool(
     const followersUrl = `https://api.github.com/users/${username}/followers`;
 
     try {
-      const profileResponse = await fetch(apiUrl);
+      const profileResponse = await fetch(apiUrl, {
+        headers: {
+          // 'Authorization': `Bearer ${githubToken}`, // Optional but recommended
+          'User-Agent': 'AgenticGitPayBit/1.0.0',   // ✅ Required!
+          // 'Accept': 'application/vnd.github+json',
+        },
+      });
       if (!profileResponse.ok) {
         throw new Error(`GitHub API request failed with status ${profileResponse.status}`);
       }
@@ -61,7 +67,13 @@ const githubProfileLookupTool = tool(
       } = {};
 
       if (includeRepos) {
-        const reposResponse = await fetch(reposUrl);
+        const reposResponse = await fetch(reposUrl, {
+          headers: {
+            // 'Authorization': `Bearer ${githubToken}`, // Optional but recommended
+            'User-Agent': 'AgenticGitPayBit/1.0.0',   // ✅ Required!
+            // 'Accept': 'application/vnd.github+json',
+          },
+        });
         if (reposResponse.ok) {
           const reposData: GitHubRepo[] = await reposResponse.json();
           additionalData.repos = reposData.map((repo) => ({
@@ -76,7 +88,13 @@ const githubProfileLookupTool = tool(
       }
 
       if (includeFollowers) {
-        const followersResponse = await fetch(followersUrl);
+        const followersResponse = await fetch(followersUrl, {
+          headers: {
+            // 'Authorization': `Bearer ${githubToken}`, // Optional but recommended
+            'User-Agent': 'AgenticGitPayBit/1.0.0',   // ✅ Required!
+            // 'Accept': 'application/vnd.github+json',
+          },
+        });
         if (followersResponse.ok) {
           const followersData: GitHubFollower[] = await followersResponse.json();
           additionalData.followers = followersData.map((follower) => ({
