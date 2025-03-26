@@ -90,7 +90,7 @@ const githubProfileLookupTool = tool(
         }
         if (!reposResponse.ok) {
           console.log(reposResponse.headers);      // Total quota
-          throw new Error(`GitHub API request failed with status ${profileResponse.status}`);
+          throw new Error(`GitHub API request failed with status ${reposResponse.status}`);
         }
       }
 
@@ -109,7 +109,7 @@ const githubProfileLookupTool = tool(
             html_url: follower.html_url,
             avatar_url: follower.avatar_url,
           }));
-        } else  (!followersResponse.ok) {
+        } else {
           console.log(followersResponse.headers);      // Total quota
           throw new Error(`GitHub API request failed with status ${followersResponse.status}`);
         }
