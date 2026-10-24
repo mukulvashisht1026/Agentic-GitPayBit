@@ -124,16 +124,19 @@ const ChatClient = () => {
           setThreadId(newThreadId);
         }
   
+        let aiText: string | undefined;
         if (primaryApiResponse) {
+          aiText = primaryApiResponse.response;
           const responseMessage: Message = {
             id: new Date().toISOString(),
-            text: primaryApiResponse.response,
+            text: aiText,
             sender: "Bot",
             timestamp: new Date().toISOString(),
           };
           setMessages((prevMessages) => [...prevMessages, responseMessage]);
         } else {
           const fallbackMessage = await callFallbackApi(messageInput);
+          aiText = fallbackMessage;
           const responseMessage: Message = {
             id: new Date().toISOString(),
             text: fallbackMessage,
@@ -142,7 +145,9 @@ const ChatClient = () => {
           };
           setMessages((prevMessages) => [...prevMessages, responseMessage]);
         }
-        setAiResponse(primaryApiResponse.response);
+        if (aiText !== undefined) {
+          setAiResponse(aiText);
+        }
       }
       setIsClicked(true)
     }
